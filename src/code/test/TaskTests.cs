@@ -11,7 +11,7 @@ using SeleniumTraining.src.code.sesion;
 namespace SeleniumTraining.src.code.test
 {
     [TestClass]
-    public class AddTaskTest : TestBase
+    public class TaskTests : TestBase
     {
         MainPage mainPage = new MainPage();
         LoginSection loginSection = new LoginSection();
@@ -27,51 +27,42 @@ namespace SeleniumTraining.src.code.test
             
             //Create Project
             leftSite.addNewProjectButton.Click();
-            leftSite.projectNameTxtBox.SetText("TESTautomation12345");
+            leftSite.projectNameTxtBox.SetText("TESTproject");
             leftSite.addButton.Click();
 
             
-            Assert.IsTrue(leftSite.ProjectNameIsDisplayed("TESTautomation12345"), "ERROR! the project was not created");
+            Assert.IsTrue(leftSite.ProjectNameIsDisplayed("TESTproject"), "ERROR! the project was not created");
             Thread.Sleep(1000);
 
-            //Edit Project
-            /*leftSite.ClickProjectName("TESTautomation12345");
-            leftSite.subMenuIcon.Click();
-            leftSite.editButton.Click();
-            leftSite.projectNameEditTxtBox.SetText("testUPDATED12345");
-            leftSite.saveButton.Click();
-
-
-            Assert.IsTrue(leftSite.ProjectNameIsDisplayed("testUPDATED12345"), "ERROR! the project was not updated");
-            Thread.Sleep(1000);*/
-
-           
-
+                
+            //Create Task
             mainTasks.newTaskTextBox.SetText("Test");
             mainTasks.addNewTaskButton.Click();
-            Thread.Sleep(3000);
+           
 
+            Assert.IsTrue(mainTasks.TaskNameDisplayed("Test"), "Error! the task was not created");
+
+            //Change TaskColor
             mainTasks.taskButton.Click();
-            Console.WriteLine("click de edited");
-            //mainTasks.taskEditTextBox.SetText("edited");
-            //Console.WriteLine("Seteado edited");
             mainTasks.taskMenuButton.Click();
-            Console.WriteLine("Menu clicked");
-            /*mainTasks.taskEditTextBox.Click();
-            Console.WriteLine("Edit Clicked");*/
-            mainTasks.taskDeleteButton.Click();
+            mainTasks.taskMenuButton.Click();
+            mainTasks.taskChangeRedColor.Click();
+            Assert.IsTrue(mainTasks.TaskColorIsChanged(), "Error! the task color was not changed");
+            
 
+            //Delete Task
+            mainTasks.taskButton.Click();
+            mainTasks.taskMenuButton.Click();
+            mainTasks.taskDeleteButton.Click();
+            Thread.Sleep(1000);
+            Assert.IsFalse(mainTasks.TaskNameDisplayed("Test"), "ERROR! the task was not deleted");            
+           
             //Delete Project
-            leftSite.ClickProjectName("TESTautomation12345");
+            leftSite.ClickProjectName("TESTproject");
             leftSite.subMenuIcon.Click();
             leftSite.deleteButton.Click();
 
-            Thread.Sleep(1000);
             sesion.Session.Instance().GetBrowser().SwitchTo().Alert().Accept();
-
-            Assert.IsTrue(leftSite.ProjectNameIsDisplayed("TESTautomation12345"), "ERROR! the project was not eliminated");
-
-            Thread.Sleep(1000);
 
 
         }

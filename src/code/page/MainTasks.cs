@@ -17,26 +17,23 @@ namespace Module_I_Automation_Todoly.src.code.page
 
         public Button taskButton = new Button(By.XPath("//div[@class='ItemContentDiv' and text()='Test']"));
         public Button taskMenuButton = new Button(By.XPath("//img[@style=\"display: inline;\"]"));
-        public Button taskEditButton = new Button(By.XPath("//ul[contains(@style,'block')]//a[@href='#edit']"));
+        public Button taskEditButton = new Button(By.XPath("//ul[contains(@style,'block')]//a[text()='Edit']"));
         public Button taskDeleteButton = new Button(By.XPath("//ul[contains(@style,'block')]//a[text()='Delete']"));
 
-        public TextBox taskEditTextBox = new TextBox(By.XPath("//div[@class='ItemContentDiv' and text()='TestTaskMarcelo']"));
+        public TextBox taskEditTextBox = new TextBox(By.XPath("//div[@class='ItemContentDiv' and text()='Test']"));
 
+        public Button taskChangeRedColor = new Button(By.XPath("//div[@class='PrioFrameOuter']/span[@iconid=1]"));
 
-
-        public void ClickTaskName(String nameValue)
+        public Boolean TaskNameDisplayed(String nameValue)
         {
-            Label nameTask = new Label(By.XPath("//div[@class='ItemContentDiv' and text()='"+nameValue+"']"));
-            nameTask.Click();
+            Label nameProject = new Label(By.XPath("//div[@class='ItemContentDiv' and text()='" + nameValue + "']"));
+            return nameProject.IsControlDisplayed();
         }
 
-        public void OptionMenu (String nameValue) 
+        public Boolean TaskColorIsChanged() 
         {
-            Label dropDownMenu = new Label(By.XPath("//ul[@id='mainItemList']/li [last()]/div/table/tbody/tr/td[@class='ItemIndicator']/div/img"));
-            dropDownMenu.Click();
-
-            Label clickOption = new Label(By.XPath("//ul[@id='itemContextMenu']/li/a[text()='" + nameValue + "']"));
-            clickOption.Click();
+            Label taskColor = new Label(By.XPath("//div[@style='color: rgb(255, 51, 0); font-weight: bold;']"));
+            return taskColor.IsControlDisplayed();
         }
     }
 }
